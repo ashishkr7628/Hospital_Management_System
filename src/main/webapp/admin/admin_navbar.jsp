@@ -29,12 +29,20 @@
 						aria-current="page" href="<%=path%>/doctor/add_specialist.jsp">Add Specialist</a></li>
 					<li class="nav-item"><a class="nav-link" href="<%=path %>/fetchAllDoctor">View
 							Doctor</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">View
+					<li class="nav-item"><a class="nav-link" href="admin/viewUser.jsp">View
 							Patients</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">View
+					<li class="nav-item"><a class="nav-link" href="viewAppointmentAdmin.jsp">View
 							Appointments</a></li>
 				</ul>
-				<span class="navbar-text"> ADMIN </span>
+				<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+   ADMIN
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="admin_logout">Logout</a></li>
+ 
+  </ul>
+</div>
 			</div>
 		</div>
 	</nav>

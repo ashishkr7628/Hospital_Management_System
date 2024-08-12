@@ -124,6 +124,12 @@ private String status = "pending";
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return "Appointment [id=" + id + ", name=" + name + ", age=" + age + ", gender=" + gender + ", diseases="
+				+ diseases + ", phone=" + phone + ", email=" + email + ", appointmentDate=" + appointmentDate
+				+ ", aadhar=" + aadhar + ", address=" + address + ", status=" + status + "]";
+	}
 	
 	
 	
