@@ -34,6 +34,13 @@ margin-left: 10%
 </head>
 <body>
 <%@ include file="admin_navbar.jsp" %>
+<% if(name==null){
+	response.sendRedirect("../../hospital_management_system/admin_login.jsp");
+	
+}
+	
+	%>
+
 <br>
 <br>
 <h3 class="text-success text-center">Welcome to Admin HomePage</h3>

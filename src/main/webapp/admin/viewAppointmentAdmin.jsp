@@ -17,6 +17,13 @@
 </head>
 <body>
 	<%@ include file="../admin/admin_navbar.jsp"%>
+	<% if(name==null){
+		response.sendRedirect("../../hospital_management_system/admin_login.jsp");
+	
+}
+	
+	%>
+	
 	
 	<% AppointmentDao dao = new AppointmentDao();
 	

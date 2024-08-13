@@ -7,6 +7,8 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <%@ include file="../components/bootstrap.jsp" %>
+
+
  <style>
         .login {
             width: 30%;
@@ -43,6 +45,15 @@
 
 
 <%@ include file="../admin/admin_navbar.jsp" %>
+
+<% if(name==null){
+	response.sendRedirect("../../hospital_management_system/admin_login.jsp");
+	
+}
+	
+	%>
+
+
 
 
 	<div class="container">

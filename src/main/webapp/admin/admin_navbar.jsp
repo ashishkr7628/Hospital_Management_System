@@ -9,10 +9,12 @@
 <body>
 
 <% String path =request.getContextPath(); %>
+
+<%String name= (String)session.getAttribute("name"); %>
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand"
-				href="<%=path%>/index.jsp">Hospital
+				href="#">Hospital
 				Management System</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -22,24 +24,25 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="<%=path %>/admin/admin_homepage.jsp">Home</a></li>
 						<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="<%=path %>/temp_Doctor">Add Doctor</a></li>
 						<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="<%=path%>/doctor/add_specialist.jsp">Add Specialist</a></li>
 					<li class="nav-item"><a class="nav-link" href="<%=path %>/fetchAllDoctor">View
 							Doctor</a></li>
-					<li class="nav-item"><a class="nav-link" href="admin/viewUser.jsp">View
+					<li class="nav-item"><a class="nav-link" href="<%=path %>/admin/viewUser.jsp">View
 							Patients</a></li>
-					<li class="nav-item"><a class="nav-link" href="viewAppointmentAdmin.jsp">View
+					<li class="nav-item"><a class="nav-link" href="<%=path %>/admin/viewAppointmentAdmin.jsp">View
 							Appointments</a></li>
 				</ul>
 				<div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-   ADMIN
+   <%=name %>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="admin_logout">Logout</a></li>
+    <li><a class="dropdown-item" href="<%=path%>/admin_logout">Logout</a></li>
  
   </ul>
 </div>

@@ -11,6 +11,13 @@
 <body>
 <%@ include file="../admin/admin_navbar.jsp" %>
 
+<% if(name==null){
+	response.sendRedirect("../hospital_management_system/admin_login.jsp");
+	
+}
+	
+	%>
+
 	<div class="container-fluid p-3">
 		<div class="row">
 			<div class="col-md-12">
@@ -40,8 +47,8 @@
 								<td>${doc.qualification} </td>
 								<td>${doc.specialist } </td>
 								<td>${doc.email } </td>
-								<td>${doc.password } </td>
-								<td>${doc.mobile}</td>
+								<td>${doc.mobile } </td>
+								<td>${doc.password}</td>
 								<td><a href="<%=path %>/updateDoctor?id=${doc.id}"
 										class="btn btn-success text-decoration-none">Update</a> 
 										<a

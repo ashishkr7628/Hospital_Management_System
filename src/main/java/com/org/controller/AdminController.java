@@ -2,6 +2,8 @@ package com.org.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +45,7 @@ public class AdminController {
 	
 	
 	@PostMapping("/admin_login")
-	public ModelAndView adminLogin(@RequestParam("email")String email, @RequestParam("password")String password) {
+	public ModelAndView adminLogin(HttpSession session,@RequestParam("email")String email, @RequestParam("password")String password) {
 		List<Admin> list = adminDao.verifyAdminByEmailAndPassword(email, password);
 		
 		if(list.isEmpty()) {
@@ -56,6 +58,12 @@ public class AdminController {
 		}
 		
 		ModelAndView mav = new ModelAndView("admin/admin_homepage.jsp");
+		
+		String name = list.get(0).getName();
+		
+		session.setAttribute("name", name);
+		
+		
 		return mav;
 		
 		
@@ -64,52 +72,42 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping("/viewdoctor")
 	
-	public ModelAndView viewDoctor() {
-		
-		ModelAndView mav = new ModelAndView("admin/addDoctor_jstlform.jsp");
-		
-		Doctor doctor= new Doctor();
-		mav.addObject("doctor",doctor);
-		
-		
-		return mav;
-	}
 	
-	@PostMapping("hospital_management_system/addAndInsertDoctor")
-	
-	public ModelAndView addAndInsertDoctor(@ModelAttribute Doctor doctor) {
-		
-		ModelAndView mav = new ModelAndView("../admin/admin_homepage.jsp");
-		
-		doctorDao.insertAndUpdateDoctor(doctor);
-		mav.addObject("success", "Registration Successful");
-	
-		mav.addObject("doctor",doctor);
-		
-		
-		return mav;
-	}
 	
 
 	@PostMapping("/add_specialist")
-	public ModelAndView admin_register(@ModelAttribute Specialist specialist) {
+	public ModelAndView admin_register(@ModelAttribute Specialist specialist,HttpSession session) {
+		ModelAndView mav;
 		
+		if(session.getAttribute("name")!=null) {
 		
-		
-		ModelAndView mav = new ModelAndView("/doctor/add_specialist.jsp");
+		 mav = new ModelAndView("/doctor/add_specialist.jsp");
 		specialistDao.insertAndUpdateSpecialist(specialist);
 	
 		
 ;
 		
 		mav.addObject("success","Registered Successfully");
+		
+		}
+		else {
+			mav=new ModelAndView("admin_login.jsp");
+		}
 		return mav;
 		
 	}
 	
+	@RequestMapping("/admin_logout")
 	
+	public ModelAndView adminLogout(HttpSession session) {
+		
+		session.removeAttribute("name");
+		ModelAndView mav = new ModelAndView("admin_login.jsp");
+		
+		
+		return mav;
+	}
 	
 	
 	

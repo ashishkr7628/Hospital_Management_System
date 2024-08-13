@@ -18,6 +18,15 @@
 List<User> list =userDao.fetchAll();
 
 %>
+
+
+<% if(name==null){
+	response.sendRedirect("../../hospital_management_system/admin_login.jsp");
+	
+}
+	
+	%>
+
 <c:forEach var="u" items="<%=list %>">
 <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">

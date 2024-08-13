@@ -26,7 +26,15 @@ form>input {
 </style>
 </head>
 <body>
-	<%@ include file="../admin/admin_homepage.jsp"%>
+	<%@ include file="../admin/admin_navbar.jsp"%>
+	
+	<% if(name==null){
+		response.sendRedirect("../hospital_management_system/admin_login.jsp");
+	
+}
+	
+	%>
+	
 	<form:form action="registerAndUpdateDoctor" modelAttribute="doctor"
 		class="doctor-form">
 		
