@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -51,6 +52,7 @@ public class DoctorController {
 		ModelAndView mav = new ModelAndView("doctor/doctor_homepage.jsp");
 		
 		session.setAttribute("doctorId",list.get(0).getId());
+		session.setAttribute("name", list.get(0).getName());
 		return mav;
 		
 		
@@ -122,7 +124,16 @@ public class DoctorController {
 		return mav;
 	}
 	
+	@RequestMapping("/doctor_logout")
 	
+	public ModelAndView adminLogout(HttpSession session) {
+		
+		session.removeAttribute("name");
+		ModelAndView mav = new ModelAndView("doctor_login.jsp");
+		
+		
+		return mav;
+	}
 
 	
 

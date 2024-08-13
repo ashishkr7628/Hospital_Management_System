@@ -19,9 +19,7 @@
 
 <%@ include file="doctor_homepage.jsp" %>
 
-<% int doctorId= (int)session.getAttribute("doctorId");
-DoctorDao dao = new DoctorDao();
-Doctor doctor =dao.fetchDoctorById(doctorId);
+<% 
 List<Appointment> list =doctor.getAppointment();
 %>
 
