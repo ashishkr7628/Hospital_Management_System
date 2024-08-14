@@ -17,6 +17,13 @@
 
 
 	<%@ include file="user_navbar.jsp"%>
+		<% if(session.getAttribute("userName")==null){
+		
+
+			response.sendRedirect("../hospital_management_system/user_login.jsp");
+		
+	}
+			 %>
 
 	<%
 	int userId = (int) session.getAttribute("userId");

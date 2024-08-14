@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,11 @@ public ModelAndView user_login(@RequestParam("email") String email,@RequestParam
 	ModelAndView mav = new ModelAndView("user/user_homepage.jsp");
 	
 	session.setAttribute("userId",list.get(0).getId());
+	session.setAttribute("userName",list.get(0).getName());
+	int userId =(int)session.getAttribute("userId");
+	User user = userDao.fetchUserById(userId);
+	mav.addObject("user", user);
+
 	return mav;
 	
 	
@@ -62,47 +68,33 @@ public ModelAndView user_login(@RequestParam("email") String email,@RequestParam
 }
 
 
-@RequestMapping("/insertAndUpdate")
-public ModelAndView insertAndUpdateAppointmentData() {
-	
-	ModelAndView mav = new ModelAndView("user/addAppointment_jstlform.jsp");
-	
-	Appointment appointment= new Appointment();
-	mav.addObject("appointment",appointment);
 
-	
-	
-	
-	
 
+@GetMapping("/view_user")
+public ModelAndView user_view(HttpSession session) {
 	
+	ModelAndView mav = new ModelAndView("user/user_homepage.jsp");
+	int userId =(int)session.getAttribute("userId");
+	User user = userDao.fetchUserById(userId);
+	mav.addObject("user", user);
 	return mav;
-	
-	
-	
-	
-	
 }
 
-@PostMapping("/insertAndUpdate1")
-public ModelAndView insertAndUpdateAppointmentData1(@ModelAttribute Appointment appointment) {
-	
-	ModelAndView mav = new ModelAndView("user/addAppointment_jstlform.jsp");
+@RequestMapping("/user_logout")
 
-	appointmentDao.insertAndUpdateAppointment(appointment);
+public ModelAndView adminLogout(HttpSession session) {
 	
+	session.removeAttribute("userName");
+	ModelAndView mav = new ModelAndView("user_login.jsp");
 	
-	
-	
-	mav.addObject("success","Registration Successful");
 	
 	return mav;
-	
-	
-	
-	
-	
 }
+
+
+
+
+
 
 
 
