@@ -51,7 +51,7 @@ margin-left: 10%
 
 </c:if>
 
-<%! int doctor= new DoctorDao().fetchAll().size();
+<% int doctor= new DoctorDao().fetchAll().size();
 
 int appoint= new AppointmentDao().fetchAll().size();
 

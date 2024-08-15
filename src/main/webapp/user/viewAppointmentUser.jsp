@@ -99,8 +99,8 @@
 			
 		
 			</c:if>
-				<td ><a class="btn btn-md btn-warning">Edit</a>
-		<a class="btn btn-md btn-danger">Delete</a></td>
+				<td ><a class="btn btn-md btn-warning" href="updateAppoint?id=${ap.id}">Edit</a>
+		<a class="btn btn-md btn-danger" href="deleteAppoint?id=${ap.id }">Delete</a></td>
 		
 			
 			</tr>

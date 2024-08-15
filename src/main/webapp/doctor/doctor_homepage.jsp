@@ -63,6 +63,7 @@ Doctor doctor=dao.fetchDoctorById(doctorId);
 							Doctor</a></li>
 					
 				</ul>
+				<a href="<%=path%>/doctor/doctor_homepage.jsp">><button type="button" class="btn btn-info">Back</button></a>
 				<div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
    <%=doctor.getName() %>

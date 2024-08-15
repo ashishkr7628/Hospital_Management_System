@@ -25,6 +25,7 @@
 							User</a></li>
 					
 				</ul>
+				<a href="<%=path %>/view_user"><button type="button" class="btn btn-info">Back</button></a>
 				<div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
    <%=name %>

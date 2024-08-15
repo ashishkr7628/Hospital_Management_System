@@ -37,6 +37,7 @@
 					<li class="nav-item"><a class="nav-link" href="<%=path %>/admin/viewAppointmentAdmin.jsp">View
 							Appointments</a></li>
 				</ul>
+				<a href="<%=path %>/admin/admin_homepage.jsp"><button type="button" class="btn btn-info">Back</button></a>
 				<div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
    <%=name %>

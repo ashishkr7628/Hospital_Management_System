@@ -2,6 +2,7 @@ package com.org.dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class Doctor {
 	 private String dob;
 	 private String qualification;
 	 private long mobile;
-	 @OneToMany(mappedBy = "doctor")
+	 @OneToMany(mappedBy = "doctor" )
 		private List<Appointment> appointment;
 	public int getId() {
 		return id;
