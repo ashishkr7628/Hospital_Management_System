@@ -28,6 +28,11 @@ public class UserController {
 
 	@Autowired
 	private AppointmentDao appointmentDao;
+	
+	
+	
+	@Autowired
+	private DoctorDao doctorDao;
 
 	@PostMapping("/user_register")
 	public ModelAndView user_register(@ModelAttribute User user) {
@@ -160,6 +165,46 @@ public ModelAndView updateAppointment(HttpSession session,@ModelAttribute Appoin
 public ModelAndView deleteAppointment(@RequestParam int id) {
 	
 	ModelAndView  mav = new ModelAndView("view_user");
+	Appointment appoint = appointmentDao.fetchAppointmentById(id);
+	Doctor doctor = appoint.getDoctor();
+	User user = appoint.getUser();
+	
+	List<Appointment> doctorList = doctor.getAppointment();
+	Appointment list1 = null;
+	for(Appointment list: doctorList) {
+		
+		if(list.getId()==id) {
+			list1=list;
+		}
+		
+	}
+	doctorList.remove(list1);
+
+	doctor.setAppointment(doctorList);
+	doctorDao.insertAndUpdateDoctor(doctor);
+
+	List<Appointment> userList = user.getAppointment();
+	Appointment list2= null;
+	for(Appointment list: userList) {
+		
+		if(list.getId()==id) {
+			list2=list;
+		}
+		
+	}
+userList.remove(list2);
+	user.setAppointment(userList);
+	userDao.insertAndUpdateUser(user);
+
+	
+	appoint.setDoctor(null);
+	appoint.setUser(null);
+	System.out.println(appoint);
+	appointmentDao.insertAndUpdateAppointment(appoint);
+	
+
+
+
 	
 appointmentDao.deleteAppointmentById(id);
 	
