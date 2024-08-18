@@ -80,19 +80,8 @@ public class AppointmentDao {
 		return false;
 	}
 
-	public void UpdateAppointment(Appointment appointment ,Doctor doctor, int apId) {
-//		appointment.getId();
-//		appointment.getName();
-//		appointment.getEmail();
-//	
-//		appointment.getAddress();
-//		appointment.getAppointmentDate();
-//		appointment.getDiseases();
-//		appointment.getPhone();
-//		appointment.getGender();
-//		appointment.getUser();
-//		appointment.getAge();
-//		appointment.getDoctor();
+	public void UpdateAppointment(Appointment appointment , int apId) {
+
 
 		EntityManager em = emf.createEntityManager();
 

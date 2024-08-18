@@ -92,6 +92,13 @@ public class Doctor {
 		this.mobile = mobile;
 	}
 
+	@Override
+	public String toString() {
+		return "Doctor [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", specialist="
+				+ specialist + ", dob=" + dob + ", qualification=" + qualification + ", mobile=" + mobile
+				+ ", appointment=" + appointment + "]";
+	}
+
 	 
 	 
 	 

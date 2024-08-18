@@ -69,7 +69,7 @@ Doctor doctor=dao.fetchDoctorById(doctorId);
    <%=doctor.getName() %>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="../doctor_logout">Logout</a></li>
+    <li><a class="dropdown-item" href="<%=path %>/doctor_logout">Logout</a></li>
  
   </ul>
 </div>

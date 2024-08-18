@@ -98,13 +98,15 @@ int userId = (int)session.getAttribute("userId");
 					<c:forEach var="d" items="<%=list%>">
 
 						<option value="${d.id}">${d.name }(${d.specialist })</option>
-						<input type="hidden" name="docId" value="${d.id }">
+						
 
 					</c:forEach>
 
 				</select><br><br>
-				<input type="hidden" name="docId" value="<%=userId%>">
+			
 				<input type="hidden" name="userId" value="<%=userId%>">
+				
+				
 				 <input type="submit" value="register">
 
 			</form>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.org.dao.AppointmentDao;
 import com.org.dao.DoctorDao;
 import com.org.dao.SpecialistDao;
 import com.org.dao.UserDao;
@@ -103,9 +104,12 @@ public class DoctorController {
 		
 	Doctor doctor = doctorDao.fetchDoctorById(id);
 	
+	
 
 	 
 	ModelAndView mav = new ModelAndView("doctor/addAndUpdateDoctor.jsp");
+	List<Specialist> listOfSpecialist  = specialistDao.fetchAll();
+	mav.addObject("list", listOfSpecialist);
 	
 	
 	mav.addObject("doctor",doctor);
@@ -118,6 +122,9 @@ public class DoctorController {
 	public ModelAndView deleteDoctor(@RequestParam("id") int id) {
 		
 		ModelAndView mav = new ModelAndView("admin/admin_homepage.jsp");
+		
+	
+		
 		
 		doctorDao.deleteDoctorById(id);
 		

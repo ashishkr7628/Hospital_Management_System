@@ -82,6 +82,8 @@ form>input {
 		<form:input path="password" type="password" />
 		<br>
 		<br>
+		
+		<form:input path="id" type="hidden"/>
 
 
 

@@ -98,6 +98,8 @@ public class AdminController {
 		
 	}
 	
+	
+	
 	@RequestMapping("/admin_logout")
 	
 	public ModelAndView adminLogout(HttpSession session) {

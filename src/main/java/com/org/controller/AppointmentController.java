@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,7 +39,8 @@ public class AppointmentController {
 @PostMapping("/add_appointment")
 
 public ModelAndView addAppointment(@ModelAttribute Appointment appointment, @RequestParam int doctorId, @RequestParam int userId ) {
-	ModelAndView mav = new ModelAndView("user/user_homepage.jsp");
+	ModelAndView mav = new ModelAndView("user/add_appointment.jsp");
+	
 	
 	Doctor doctor= doctorDao.fetchDoctorById(doctorId);
 	
@@ -46,6 +48,7 @@ public ModelAndView addAppointment(@ModelAttribute Appointment appointment, @Req
 	List<Appointment> listOfAppointment = doctor.getAppointment();
 	listOfAppointment.add(appointment);
 	doctor.setAppointment(listOfAppointment);
+	
 	
 	User user = userDao.fetchUserById(userId);
 	List<Appointment> list = user.getAppointment();
@@ -60,10 +63,13 @@ public ModelAndView addAppointment(@ModelAttribute Appointment appointment, @Req
 		list.add(appointment);
 	}
 	user.setAppointment(list);
+	
 	appointment.setUser(user);
 	
 	appointmentDao.insertAndUpdateAppointment(appointment);
 	return mav;
+	
+	
 	
 }
 
@@ -129,16 +135,16 @@ public ModelAndView updateReject(@RequestParam int id) {
 //		ModelAndView mav = new ModelAndView("user/user_homepage.jsp");
 //		int appointId = (int)session.getAttribute("appointId");
 //		
-//		Doctor doctor= doctorDao.fetchDoctorById(userId);
+//		Doctor doctor= doctorDao.fetchDoctorById(doctorId);
 //		
 //		Appointment appoint = appointmentDao.fetchAppointmentById(appointId);
 //		
 //		
 //		
-//		appointment.setDoctor(doctor);
 //		List<Appointment> listOfAppointment = doctor.getAppointment();
 //		listOfAppointment.add(appointment);
 //		doctor.setAppointment(listOfAppointment);
+//		doctorDao.insertAndUpdateDoctor(doctor);
 //		
 //		User user = userDao.fetchUserById(userId);
 //		List<Appointment> list = user.getAppointment();
@@ -153,14 +159,17 @@ public ModelAndView updateReject(@RequestParam int id) {
 //			list.add(appointment);
 //		}
 //		user.setAppointment(list);
+//		
+//		userDao.insertAndUpdateUser(user);
 //		appointment.setUser(user);
+//		appointment.setDoctor(doctor);
 //		
 //		appointmentDao.insertAndUpdateAppointment(appointment);
 //		return mav;
 //		
 //	}
-//
-//	
+
+	
 	
 	
 }

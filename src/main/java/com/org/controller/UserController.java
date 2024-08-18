@@ -1,5 +1,6 @@
 package com.org.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -99,11 +100,6 @@ public class UserController {
 		
 		session.setAttribute("appointId", id);
 
-		
-		
-		
-		
-
 		int userId = (int) session.getAttribute("userId");
 		User user = userDao.fetchUserById(userId);
 		List<Appointment> appointment = user.getAppointment();
@@ -139,18 +135,74 @@ return ap;
 	
 	
 }
-
+//
 @PostMapping("update_appointment")
 public ModelAndView updateAppointment(HttpSession session,@ModelAttribute Appointment appointment, @RequestParam int doctorId, @RequestParam int userId) {
 	ModelAndView mav = new ModelAndView("user/viewAppointmentUser.jsp");
-	DoctorDao dao =new DoctorDao(); 
-	Doctor doctor = dao.fetchDoctorById(doctorId);
-	System.out.println("hiii");
-	System.out.println(appointment.toString());
+	
+	
 	
 	int apId = (int) session.getAttribute("appointId");
 	
-	appointmentDao.UpdateAppointment(appointment,doctor,apId);
+	appointmentDao.UpdateAppointment(appointment,apId);
+	
+
+	Appointment appoint = appointmentDao.fetchAppointmentById(apId);
+	Doctor doctor = doctorDao.fetchDoctorById(doctorId);
+	System.out.println(doctor);
+	
+	User user = userDao.fetchUserById(userId);
+	System.out.println(user);
+	
+	List<Appointment> doctorList = doctor.getAppointment();
+	Appointment list1 = null;
+	for(Appointment list: doctorList) {
+		
+		if(list.getId()==apId) {
+			list1=list;
+		}
+		
+	}
+	doctorList.remove(list1);
+	
+	if(doctorList==null) {
+		
+		 doctorList = new ArrayList<Appointment>();
+		doctorList.add(appoint);
+	}
+	
+	else {
+		doctorList.add(appoint);
+	}
+	
+
+	doctor.setAppointment(doctorList);
+	System.out.println(doctor);
+	doctorDao.insertAndUpdateDoctor(doctor);
+
+	List<Appointment> userList = user.getAppointment();
+	Appointment list2= null;
+	for(Appointment list: userList) {
+		
+		if(list.getId()==apId) {
+			list2=list;
+		}
+		
+	}
+userList.remove(list2);
+userList.add(appoint);
+	user.setAppointment(userList);
+	
+	userDao.insertAndUpdateUser(user);
+	System.out.println(user);
+	
+	appoint.setUser(user);
+	appoint.setDoctor(doctor);
+	appointmentDao.insertAndUpdateAppointment(appoint);
+	
+	
+	
+	
 	
 	
 	
@@ -164,7 +216,7 @@ public ModelAndView updateAppointment(HttpSession session,@ModelAttribute Appoin
 
 public ModelAndView deleteAppointment(@RequestParam int id) {
 	
-	ModelAndView  mav = new ModelAndView("view_user");
+	ModelAndView  mav = new ModelAndView("user/viewAppointmentUser.jsp");
 	Appointment appoint = appointmentDao.fetchAppointmentById(id);
 	Doctor doctor = appoint.getDoctor();
 	User user = appoint.getUser();
@@ -199,7 +251,7 @@ userList.remove(list2);
 	
 	appoint.setDoctor(null);
 	appoint.setUser(null);
-	System.out.println(appoint);
+
 	appointmentDao.insertAndUpdateAppointment(appoint);
 	
 
