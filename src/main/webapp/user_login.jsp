@@ -70,6 +70,7 @@
                     <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="userForgot" class="card-link">Forgot Password</a>
             </form>
         </div>
     </div>

@@ -2,7 +2,9 @@ package com.org.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.org.dao.AppointmentDao;
 import com.org.dao.DoctorDao;
+import com.org.dao.SendingMail;
 import com.org.dao.UserDao;
 import com.org.dto.Appointment;
 import com.org.dto.Doctor;
@@ -265,6 +268,91 @@ appointmentDao.deleteAppointmentById(id);
 	
 	
 }
+
+
+@GetMapping("userForgot")
+
+public ModelAndView userForgot( ) {
+	
+	ModelAndView mav = new ModelAndView("user/userForgot.jsp");
+	
+	return mav;
+	
+	
+	
+
+	
+
+
+	
+}
+
+
+@PostMapping("userSendOtp")
+
+public ModelAndView sendOtp(@RequestParam String email,HttpSession session) throws MessagingException {
+	
+	Random random =  new Random();
+	int r= 1000 + random.nextInt(9000);
+	
+	String otp = ""+r;
+	
+	SendingMail mail = new SendingMail();
+	mail.mail(otp, email);
+	
+	
+	
+	ModelAndView mav = new ModelAndView("user/forgotPage.jsp");
+	
+	session.setAttribute("otp",otp);
+	session.setAttribute("userEmail",email);
+	
+	
+
+	
+	return mav;
+	
+	
+		
+	
+	
+	
+}
+
+
+@PostMapping("userReset")
+
+public ModelAndView sendOtp(@RequestParam String password, @RequestParam String userOtp,HttpSession session)  {
+String userEmail= (String) session.getAttribute("userEmail");
+String Otp= (String) session.getAttribute("otp");
+
+ModelAndView mav = new ModelAndView("index.jsp");
+
+if(userOtp.equals(Otp)) {
+	
+	User user = userDao.fetchByEmail(userEmail);
+	
+	user.setPassword(password);
+	
+	userDao.insertAndUpdateUser(user);
+	
+	mav.addObject("msg","password successfully changed");
+	
+	
+}
+
+
+
+	
+	return mav;
+	
+	
+		
+	
+	
+	
+}
+
 
 
 

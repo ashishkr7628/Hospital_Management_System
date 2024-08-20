@@ -1,7 +1,9 @@
 package com.org.controller;
 
 import java.util.List;
+import java.util.Random;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.org.dao.AdminDao;
 import com.org.dao.DoctorDao;
+import com.org.dao.SendingMail;
 import com.org.dao.SpecialistDao;
 import com.org.dto.Admin;
 import com.org.dto.Doctor;
 import com.org.dto.Specialist;
+import com.org.dto.User;
 @Controller
 public class AdminController {
 	
@@ -110,6 +114,91 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+@GetMapping("forgot")
+	
+	public ModelAndView userForgot( ) {
+		
+		ModelAndView mav = new ModelAndView("admin/userForgot.jsp");
+		
+		return mav;
+		
+		
+		
+	
+		
+	
+	
+		
+	}
+	
+	
+	@PostMapping("sendOtp")
+	
+	public ModelAndView sendOtp(@RequestParam String email,HttpSession session) throws MessagingException {
+		
+		Random random =  new Random();
+		int r= 1000 + random.nextInt(9000);
+		
+		String otp = ""+r;
+		
+		SendingMail mail = new SendingMail();
+		mail.mail(otp, email);
+		
+		
+		
+		ModelAndView mav = new ModelAndView("admin/forgotPage.jsp");
+		
+		session.setAttribute("otp",otp);
+		session.setAttribute("userEmail",email);
+		
+		
+	
+		
+		return mav;
+		
+		
+			
+		
+		
+		
+	}
+	
+	
+	@PostMapping("reset")
+	
+	public ModelAndView sendOtp(@RequestParam String password, @RequestParam String userOtp,HttpSession session)  {
+	String userEmail= (String) session.getAttribute("userEmail");
+	String Otp= (String) session.getAttribute("otp");
+	
+	ModelAndView mav = new ModelAndView("index.jsp");
+	
+	if(userOtp.equals(Otp)) {
+		
+		Admin user = adminDao.fetchByEmail(userEmail);
+		
+		user.setPassword(password);
+		
+		
+		adminDao.insertAndUpdateAdmin(user);
+		
+		mav.addObject("msg","password successfully changed");
+		
+		
+	}
+	
+	
+	
+		
+		return mav;
+		
+		
+			
+		
+		
+		
+	}
+	
 	
 	
 	

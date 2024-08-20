@@ -88,6 +88,20 @@ public class AdminDao {
 	
 	
 	
+	public Admin fetchByEmail(String email) {
+		
+		EntityManager em= emf.createEntityManager();
+		Query query = em.createQuery("select s from Admin s where s.email=?1");
+		query.setParameter(1, email);
+	List<Admin> list = query.getResultList();
+
+	Admin admin = list.get(0);
+		return admin;
+		
+	}
+	
+	
+	
 	
 	
 	
